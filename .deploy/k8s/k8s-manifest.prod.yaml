@@ -2,19 +2,19 @@
 kind: Service
 apiVersion: v1
 metadata:
-    name: gauzy-prod-web-lb
+    name: globalsync-prod-web-lb
     annotations:
-        service.beta.kubernetes.io/do-loadbalancer-name: 'app.gauzy.co'
+        service.beta.kubernetes.io/do-loadbalancer-name: 'app.btrglobal.co.uk'
         service.beta.kubernetes.io/do-loadbalancer-protocol: 'http2'
         service.beta.kubernetes.io/do-loadbalancer-http2-ports: '443'
         # Replace with your Certificate Id. You can get a list of Ids with 'doctl compute certificate list'
-        service.beta.kubernetes.io/do-loadbalancer-certificate-id: '4bf6d197-6dbb-4394-815b-a543761d94d2'
+        service.beta.kubernetes.io/do-loadbalancer-certificate-id: '6430687e-4b00-4898-b66c-38e6fb9e5a19'
         service.beta.kubernetes.io/do-loadbalancer-size-slug: 'lb-small'
-        service.beta.kubernetes.io/do-loadbalancer-hostname: 'app.gauzy.co'
+        service.beta.kubernetes.io/do-loadbalancer-hostname: 'app.btrglobal.co.uk'
 spec:
     type: LoadBalancer
     selector:
-        app: gauzy-prod-webapp
+        app: globalsync-prod-webapp
     ports:
         - name: http
           protocol: TCP
@@ -24,19 +24,19 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-    name: gauzy-prod-api-lb
+    name: globalsync-prod-api-lb
     annotations:
-        service.beta.kubernetes.io/do-loadbalancer-name: 'api.gauzy.co'
+        service.beta.kubernetes.io/do-loadbalancer-name: 'api.btrglobal.co.uk'
         service.beta.kubernetes.io/do-loadbalancer-protocol: 'http2'
         service.beta.kubernetes.io/do-loadbalancer-http2-ports: '443'
         # Replace with your Certificate Id. You can get a list of Ids with 'doctl compute certificate list'
         service.beta.kubernetes.io/do-loadbalancer-certificate-id: '4bf6d197-6dbb-4394-815b-a543761d94d2'
         service.beta.kubernetes.io/do-loadbalancer-size-slug: 'lb-small'
-        service.beta.kubernetes.io/do-loadbalancer-hostname: 'api.gauzy.co'
+        service.beta.kubernetes.io/do-loadbalancer-hostname: 'api.btrglobal.co.uk'
 spec:
     type: LoadBalancer
     selector:
-        app: gauzy-prod-api
+        app: globalsync-prod-api
     ports:
         - name: http
           protocol: TCP
@@ -46,19 +46,19 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: gauzy-prod-api
+    name: globalsync-prod-api
 spec:
     replicas: 6
     selector:
         matchLabels:
-            app: gauzy-prod-api
+            app: globalsync-prod-api
     template:
         metadata:
             labels:
-                app: gauzy-prod-api
+                app: globalsync-prod-api
         spec:
             containers:
-                - name: gauzy-prod-api
+                - name: globalsync-prod-api
                   image: registry.digitalocean.com/ever/gauzy-api:latest
                   resources:
                       requests:
@@ -319,7 +319,7 @@ spec:
                       - name: DEFAULT_LONGITUDE
                         value: '23.3332736'
                       - name: DEFAULT_CURRENCY
-                        value: 'USD'
+                        value: 'GBP'
                       - name: GAUZY_GITHUB_CLIENT_ID
                         value: '$GAUZY_GITHUB_CLIENT_ID'
                       - name: GAUZY_GITHUB_APP_NAME

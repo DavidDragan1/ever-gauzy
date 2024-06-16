@@ -1,21 +1,21 @@
 {
-	"name": "ever-gauzy",
+	"name": "hrms-v3",
 	"version": "0.1.0",
-	"description": "Ever Gauzy - Business Management Platform (ERP/CRM/HRM)",
+	"description": "GlobalSync Suite - Business Management Platform (ERP/CRM/HRM)",
 	"license": "AGPL-3.0",
-	"homepage": "https://gauzy.co",
+	"homepage": "https://wtslondon.co.uk/globalsync/",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/ever-co/ever-gauzy.git"
+		"url": "https://github.com/DavidDragan1/ever-gauzy"
 	},
 	"bugs": {
-		"url": "https://github.com/ever-co/ever-gauzy/issues"
+		"url": "https://github.com/DavidDragan1/ever-gauzy/issues"
 	},
 	"private": true,
 	"author": {
-		"name": "Ever Co. LTD",
-		"email": "ever@ever.co",
-		"url": "https://ever.co"
+		"name": "Web Tech Solutions UK Limited",
+		"email": "daviddragan377@gmail.com",
+		"url": "https://wtslondon.co.uk/"
 	},
 	"keywords": [],
 	"scripts": {
