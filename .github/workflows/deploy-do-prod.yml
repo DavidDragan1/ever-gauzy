@@ -12,7 +12,7 @@ jobs:
   deploy-prod:
     runs-on: buildjet-4vcpu-ubuntu-2204
 
-    environment: prod
+    environment: kubernetes
 
     steps:
       - name: Checkout
