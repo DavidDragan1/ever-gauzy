@@ -1,48 +1,48 @@
----
-kind: Service
-apiVersion: v1
-metadata:
-    name: globalsync-prod-web-lb
-    annotations:
-        service.beta.kubernetes.io/do-loadbalancer-name: 'app.btrglobal.co.uk'
-        service.beta.kubernetes.io/do-loadbalancer-protocol: 'http2'
-        service.beta.kubernetes.io/do-loadbalancer-http2-ports: '443'
-        # Replace with your Certificate Id. You can get a list of Ids with 'doctl compute certificate list'
-        service.beta.kubernetes.io/do-loadbalancer-certificate-id: '6430687e-4b00-4898-b66c-38e6fb9e5a19'
-        service.beta.kubernetes.io/do-loadbalancer-size-slug: 'lb-small'
-        service.beta.kubernetes.io/do-loadbalancer-hostname: 'app.btrglobal.co.uk'
-spec:
-    type: LoadBalancer
-    selector:
-        app: globalsync-prod-webapp
-    ports:
-        - name: http
-          protocol: TCP
-          port: 443
-          targetPort: 4200
----
-kind: Service
-apiVersion: v1
-metadata:
-    name: globalsync-prod-api-lb
-    annotations:
-        service.beta.kubernetes.io/do-loadbalancer-name: 'api.btrglobal.co.uk'
-        service.beta.kubernetes.io/do-loadbalancer-protocol: 'http2'
-        service.beta.kubernetes.io/do-loadbalancer-http2-ports: '443'
-        # Replace with your Certificate Id. You can get a list of Ids with 'doctl compute certificate list'
-        service.beta.kubernetes.io/do-loadbalancer-certificate-id: '4bf6d197-6dbb-4394-815b-a543761d94d2'
-        service.beta.kubernetes.io/do-loadbalancer-size-slug: 'lb-small'
-        service.beta.kubernetes.io/do-loadbalancer-hostname: 'api.btrglobal.co.uk'
-spec:
-    type: LoadBalancer
-    selector:
-        app: globalsync-prod-api
-    ports:
-        - name: http
-          protocol: TCP
-          port: 443
-          targetPort: 3000
----
+# ---
+# kind: Service
+# apiVersion: v1
+# metadata:
+#     name: globalsync-prod-web-lb
+#     annotations:
+#         service.beta.kubernetes.io/do-loadbalancer-name: 'app.btrglobal.co.uk'
+#         service.beta.kubernetes.io/do-loadbalancer-protocol: 'http2'
+#         service.beta.kubernetes.io/do-loadbalancer-http2-ports: '443'
+#         # Replace with your Certificate Id. You can get a list of Ids with 'doctl compute certificate list'
+#         service.beta.kubernetes.io/do-loadbalancer-certificate-id: '6430687e-4b00-4898-b66c-38e6fb9e5a19'
+#         service.beta.kubernetes.io/do-loadbalancer-size-slug: 'lb-small'
+#         service.beta.kubernetes.io/do-loadbalancer-hostname: 'app.btrglobal.co.uk'
+# spec:
+#     type: LoadBalancer
+#     selector:
+#         app: globalsync-prod-webapp
+#     ports:
+#         - name: http
+#           protocol: TCP
+#           port: 443
+#           targetPort: 4200
+# ---
+# kind: Service
+# apiVersion: v1
+# metadata:
+#     name: globalsync-prod-api-lb
+#     annotations:
+#         service.beta.kubernetes.io/do-loadbalancer-name: 'api.btrglobal.co.uk'
+#         service.beta.kubernetes.io/do-loadbalancer-protocol: 'http2'
+#         service.beta.kubernetes.io/do-loadbalancer-http2-ports: '443'
+#         # Replace with your Certificate Id. You can get a list of Ids with 'doctl compute certificate list'
+#         service.beta.kubernetes.io/do-loadbalancer-certificate-id: '4bf6d197-6dbb-4394-815b-a543761d94d2'
+#         service.beta.kubernetes.io/do-loadbalancer-size-slug: 'lb-small'
+#         service.beta.kubernetes.io/do-loadbalancer-hostname: 'api.btrglobal.co.uk'
+# spec:
+#     type: LoadBalancer
+#     selector:
+#         app: globalsync-prod-api
+#     ports:
+#         - name: http
+#           protocol: TCP
+#           port: 443
+#           targetPort: 3000
+# ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
