@@ -137,7 +137,7 @@ jobs:
           APP_LINK: 'btrglobal.co.uk'
           APP_EMAIL_CONFIRMATION_URL: '${{ secrets.APP_EMAIL_CONFIRMATION_URL }}'
           APP_MAGIC_SIGN_URL: '${{ secrets.APP_MAGIC_SIGN_URL }}'
-          COMPANY_LINK: 'btrglobal.co.uk/GlobalSync'
+          COMPANY_LINK: 'btrglobal.co.uk/globalsync'
           COMPANY_NAME: 'BTR Global'
 
       # we need this step because for now we just use :latest tag
