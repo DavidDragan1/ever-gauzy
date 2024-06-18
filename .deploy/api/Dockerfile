@@ -105,8 +105,8 @@ ARG REDIS_URL
 
 FROM node:20.11.1-alpine3.19 AS dependencies
 
-LABEL maintainer="ever@ever.co"
-LABEL org.opencontainers.image.source https://github.com/ever-co/ever-gauzy
+LABEL maintainer="daviddragan377@gmail.com"
+LABEL org.opencontainers.image.source https://github.com/daviddragan1/ever-gauzy
 
 ENV CI=true
 
@@ -162,7 +162,7 @@ COPY --chown=node:node packages/plugins/changelog/package.json ./packages/plugin
 COPY --chown=node:node packages/plugins/job-search/package.json ./packages/plugins/job-search/
 COPY --chown=node:node packages/plugins/job-proposal/package.json ./packages/plugins/job-proposal/
 COPY --chown=node:node packages/plugins/job-search-ui/package.json ./packages/plugins/job-search-ui/
-COPY --chown=node:node packages/ui-sdk/package.json ./packages/ui-sdk/
+COPY --chown=node:node packages/ui-core/package.json ./packages/ui-core/
 COPY --chown=node:node packages/ui-config/package.json ./packages/ui-config/
 
 # We do not build here Wakatime plugin, because it used in Desktop Apps for now
@@ -223,7 +223,7 @@ COPY --chown=node:node packages/plugins/changelog/package.json ./packages/plugin
 COPY --chown=node:node packages/plugins/job-search/package.json ./packages/plugins/job-search/
 COPY --chown=node:node packages/plugins/job-proposal/package.json ./packages/plugins/job-proposal/
 COPY --chown=node:node packages/plugins/job-search-ui/package.json ./packages/plugins/job-search-ui/
-COPY --chown=node:node packages/ui-sdk/package.json ./packages/ui-sdk/
+COPY --chown=node:node packages/ui-core/package.json ./packages/ui-core/
 COPY --chown=node:node packages/ui-config/package.json ./packages/ui-config/
 
 # We do not build here Wakatime plugin, because it used in Desktop Apps for now
