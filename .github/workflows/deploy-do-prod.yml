@@ -36,7 +36,7 @@ jobs:
 
       - name: Apply k8s manifests changes in DigitalOcean k8s cluster (if any)
         run: |
-          envsubst < $GITHUB_WORKSPACE/.deploy/k8s/k8s-manifest.prod.yaml | kubectl --context do-sfo2-k8s-gauzy apply -f -
+          envsubst < $GITHUB_WORKSPACE/.deploy/k8s/k8s-manifest.prod.yaml | kubectl --context pool-xu4p56qeg apply -f -
         env:
           # below we are using GitHub secrets for both frontend and backend
           DB_TYPE: '${{ secrets.DB_TYPE }}'
@@ -71,7 +71,7 @@ jobs:
           WASABI_S3_FORCE_PATH_STYLE: '${{ secrets.WASABI_S3_FORCE_PATH_STYLE }}'
           DIGITALOCEAN_ACCESS_KEY_ID: '${{ secrets.DIGITALOCEAN_ACCESS_KEY_ID }}'
           DIGITALOCEAN_SECRET_ACCESS_KEY: '${{ secrets.DIGITALOCEAN_SECRET_ACCESS_KEY }}'
-          DIGITALOCEAN_REGION: '${{ secrets.DIGITALOCEAN_REGION }}'
+          DIGITALOCEAN_REGION: 'LON1'
           DIGITALOCEAN_SERVICE_URL: '${{ secrets.DIGITALOCEAN_SERVICE_URL }}'
           DIGITALOCEAN_CDN_URL: '${{ secrets.DIGITALOCEAN_CDN_URL }}'
           DIGITALOCEAN_S3_BUCKET: '${{ secrets.DIGITALOCEAN_S3_BUCKET }}'
@@ -84,11 +84,11 @@ jobs:
           CLOUDINARY_API_SECRET: '${{ secrets.CLOUDINARY_API_SECRET }}'
           CLOUDINARY_CLOUD_NAME: '${{ secrets.CLOUDINARY_CLOUD_NAME }}'
           MAIL_FROM_ADDRESS: '${{ secrets.MAIL_FROM_ADDRESS }}'
-          MAIL_HOST: '${{ secrets.MAIL_HOST }}'
-          MAIL_PORT: '${{ secrets.MAIL_PORT }}'
-          MAIL_USERNAME: '${{ secrets.MAIL_USERNAME }}'
+          MAIL_HOST: 'smtp.gmail.com'
+          MAIL_PORT: '465'
+          MAIL_USERNAME: 'btrglobal.uk@gmail.com'
           MAIL_PASSWORD: '${{ secrets.MAIL_PASSWORD }}'
-          ALLOW_SUPER_ADMIN_ROLE: '${{ secrets.ALLOW_SUPER_ADMIN_ROLE }}'
+          ALLOW_SUPER_ADMIN_ROLE: 'true'
           GOOGLE_CLIENT_ID: '${{ secrets.GOOGLE_CLIENT_ID }}'
           GOOGLE_CLIENT_SECRET: '${{ secrets.GOOGLE_CLIENT_SECRET }}'
           GOOGLE_CALLBACK_URL: '${{ secrets.GOOGLE_CALLBACK_URL }}'
@@ -131,18 +131,18 @@ jobs:
           JITSU_BROWSER_URL: '${{ secrets.JITSU_BROWSER_URL }}'
           JITSU_BROWSER_WRITE_KEY: '${{ secrets.JITSU_BROWSER_WRITE_KEY }}'
           MAGIC_CODE_EXPIRATION_TIME: '${{ secrets.MAGIC_CODE_EXPIRATION_TIME }}'
-          APP_NAME: '${{ secrets.APP_NAME }}'
-          APP_LOGO: '${{ secrets.APP_LOGO }}'
-          APP_SIGNATURE: '${{ secrets.APP_SIGNATURE }}'
-          APP_LINK: '${{ secrets.APP_LINK }}'
+          APP_NAME: 'GlobalSync'
+          APP_LOGO: 'http://btrglobal.co.uk:4200/assets/images/logos/logo_Gauzy.png'
+          APP_SIGNATURE: 'GlobalSync Suite'
+          APP_LINK: 'btrglobal.co.uk'
           APP_EMAIL_CONFIRMATION_URL: '${{ secrets.APP_EMAIL_CONFIRMATION_URL }}'
           APP_MAGIC_SIGN_URL: '${{ secrets.APP_MAGIC_SIGN_URL }}'
-          COMPANY_LINK: '${{ secrets.COMPANY_LINK }}'
-          COMPANY_NAME: '${{ secrets.COMPANY_NAME }}'
+          COMPANY_LINK: 'btrglobal.co.uk/GlobalSync'
+          COMPANY_NAME: 'BTR Global'
 
       # we need this step because for now we just use :latest tag
       # note: for production we will use different strategy later
       - name: Restart Pods to pick up :latest tag version
         run: |
-          kubectl --context do-sfo2-k8s-gauzy rollout restart deployment/gauzy-prod-api
-          kubectl --context do-sfo2-k8s-gauzy rollout restart deployment/gauzy-prod-webapp
+          kubectl --context pool-xu4p56qeg rollout restart deployment/api
+          kubectl --context pool-xu4p56qeg rollout restart deployment/webapp
