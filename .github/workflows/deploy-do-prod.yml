@@ -1,10 +1,10 @@
 name: Deploy to DigitalOcean Prod
 
 on:
-  push:
-    # workflow_run:
-    #   workflows: ['Build and Publish Docker Images Prod']
-    branches: [master]
+  push
+  # workflow_run:
+  #   workflows: ['Build and Publish Docker Images Prod']
+  # branches: [master]
   #   types:
   #     - completed
 
