@@ -51,15 +51,15 @@ spec:
     replicas: 6
     selector:
         matchLabels:
-            app: globalsync-prod-api
+            app: api
     template:
         metadata:
             labels:
-                app: globalsync-prod-api
+                app: api
         spec:
             containers:
-                - name: globalsync-prod-api
-                  image: registry.digitalocean.com/ever/gauzy-api:latest
+                - name: api
+                  image: registry.digitalocean.com/btr/api:latest
                   resources:
                       requests:
                           memory: '1536Mi'
@@ -78,7 +78,7 @@ spec:
                       - name: LOG_LEVEL
                         value: 'info'
                       - name: CLOUD_PROVIDER
-                        value: '$CLOUD_PROVIDER'
+                        value: 'DO'
                       - name: SENTRY_DSN
                         value: '$SENTRY_DSN'
                       - name: SENTRY_HTTP_TRACING_ENABLED
@@ -88,27 +88,52 @@ spec:
                       - name: SENTRY_POSTGRES_TRACKING_ENABLED
                         value: '$SENTRY_POSTGRES_TRACKING_ENABLED'
                       - name: API_BASE_URL
-                        value: 'https://api.gauzy.co'
+                        value: 'https://api.btrglobal.co.uk'
                       - name: CLIENT_BASE_URL
-                        value: 'https://app.gauzy.co'
+                        value: 'https://app.btrglobal.co.uk'
                       - name: DB_URI
-                        value: '$DB_URI'
+                        value: 'postgresql://doadmin:AVNS_ejfMNWVCjPyybyGX6vm@db-btr-hrms-cluster-do-user-16956574-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require'
                       - name: DB_HOST
-                        value: '$DB_HOST'
+                        value: 'db-btr-hrms-cluster-do-user-16956574-0.c.db.ondigitalocean.com'
                       - name: DB_SSL_MODE
-                        value: '$DB_SSL_MODE'
+                        value: 'require'
                       - name: DB_CA_CERT
-                        value: '$DB_CA_CERT'
+                        value: '-----BEGIN CERTIFICATE-----
+MIIEQTCCAqmgAwIBAgIUJzcvdOpFJPI3ZpP9hxRIegncFhQwDQYJKoZIhvcNAQEM
+BQAwOjE4MDYGA1UEAwwvZGExMzc0ZWEtYjc2Mi00OTk0LWJlNTQtZTkyZTNmNmRj
+YzA1IFByb2plY3QgQ0EwHhcNMjQwNjE1MTY1NzMxWhcNMzQwNjEzMTY1NzMxWjA6
+MTgwNgYDVQQDDC9kYTEzNzRlYS1iNzYyLTQ5OTQtYmU1NC1lOTJlM2Y2ZGNjMDUg
+UHJvamVjdCBDQTCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBAITXyrqE
+U9YWpLQZ6nRs3IEUNfIM/g5sRSkRypPqUgnK/l7TmZt4ooRQEBFAoUhk2WMw/ieI
+Nt+KCBX2VP3rHz6aPcxOXCDE724bWcL9cJ409QxHqu3RRA37WWGAQDiXyKA1TXKG
+xblc6pXzZTKr9sCFpvqFvnpPbcjR3DcohOoFWyCeJvZogLUaEm+lqS1oRfK1PLCY
+iVRRJLkTzXwmXgTfsRIcWtX4myfiV5XrmEi1lz1x/L4FkZdf8Mef7iRbfpx3yNSO
+AX2aZp+8Pho0/FENzAobHXjt0hrpGpkpPAtWiB7Atq5P6YJ3/A3Xs+C9/Ua+slpQ
+e+xOGGBRIpBVDia4iz4wPL+VTbkCZ5hfKcyl5wkf/M1kUimMfJLKmUMh4rCBQjzq
+18zVgXRLir2DwnfJGeSLz60PV9OyoE9GK0th6O249fpM1hw6mSlL6fXrEDhvA/3C
+ew3tGMk0Hd1ct6aUc1rmvXqQhjDJfPd4fZq5hxhvM7E43rZQarngSxZozwIDAQAB
+oz8wPTAdBgNVHQ4EFgQU/L6nahuWEDGyxMxos1SfiSZkHk0wDwYDVR0TBAgwBgEB
+/wIBADALBgNVHQ8EBAMCAQYwDQYJKoZIhvcNAQEMBQADggGBAFGLWVUWD4nX44fC
+r2Jpszq7FvRTs9cKk/ZIanYfMc6EcRJUbyyZPIOWgx4U/CuJI9CYv6ZKzz7Xm9fD
+UeHOR/RKEIShFGCdkpcxaUPvitBdofqXI/Xjn3LgaG0HG8w5eyUqX+D+jCdfjrCA
+tCQpX8C5BGBusda/iK7vY25hO8C3tDlusf+CwR9Ybj8r624k17Mzs15WVUgEaXmN
+6BrvFDIWPxzSCONyXFhTHEhILd8NL7FYzq3TdNo/e3V6yJcI7gaLkLUlXRFPhu4N
+YHGX3iOYtbfck8bkfWdrbZ44kH+4o8zOx/JOYfw7rI+ie16zxQt5dlWBjOMddjar
+uEI7GU4Xs5fAQhhbsNs3kl6qf7LVrmXc+O6dQSuumdboG6gRuCRXUpi+x2PmnTML
+Hqa5JrnBAVH7fcF9MNnlwmZRYE7+piwcsxDyMG0+UZeUCRqYzBGZZaIH1ZSmr8vY
+aevO/cKsAclcjGb9OmQEKy7Gh8H4jWMUVnqObWyEoZmYfPW/2w==
+-----END CERTIFICATE-----
+'
                       - name: DB_USER
-                        value: '$DB_USER'
+                        value: 'doadmin'
                       - name: DB_PASS
-                        value: '$DB_PASS'
+                        value: 'AVNS_ejfMNWVCjPyybyGX6vm'
                       - name: DB_TYPE
-                        value: '$DB_TYPE'
+                        value: 'postgres'
                       - name: DB_NAME
-                        value: '$DB_NAME'
+                        value: 'defaultdb'
                       - name: DB_PORT
-                        value: '$DB_PORT'
+                        value: '25060'
                       - name: DB_POOL_SIZE
                         value: '$DB_POOL_SIZE'
                       - name: DB_POOL_SIZE_KNEX
@@ -138,11 +163,11 @@ spec:
                       - name: WASABI_S3_FORCE_PATH_STYLE
                         value: '$WASABI_S3_FORCE_PATH_STYLE'
                       - name: DIGITALOCEAN_ACCESS_KEY_ID
-                        value: '$DIGITALOCEAN_ACCESS_KEY_ID'
+                        value: '6430687e-4b00-4898-b66c-38e6fb9e5a19'
                       - name: DIGITALOCEAN_SECRET_ACCESS_KEY
-                        value: '$DIGITALOCEAN_SECRET_ACCESS_KEY'
+                        value: 'dop_v1_9d14322d2c28bbfb1c0e712b8f7e38afa4c353532637f28c176ab7b5d8325cee'
                       - name: DIGITALOCEAN_REGION
-                        value: '$DIGITALOCEAN_REGION'
+                        value: 'LON1'
                       - name: DIGITALOCEAN_SERVICE_URL
                         value: '$DIGITALOCEAN_SERVICE_URL'
                       - name: DIGITALOCEAN_CDN_URL
@@ -166,19 +191,19 @@ spec:
                       - name: CLOUDINARY_CLOUD_NAME
                         value: '$CLOUDINARY_CLOUD_NAME'
                       - name: DEFAULT_CURRENCY
-                        value: 'USD'
+                        value: 'GBP'
                       - name: MAIL_FROM_ADDRESS
-                        value: '$MAIL_FROM_ADDRESS'
+                        value: 'btrglobal.uk@gmail.com'
                       - name: MAIL_HOST
-                        value: '$MAIL_HOST'
+                        value: 'smtp.gmail.com'
                       - name: MAIL_PORT
-                        value: '$MAIL_PORT'
+                        value: '465'
                       - name: MAIL_USERNAME
-                        value: '$MAIL_USERNAME'
+                        value: 'btrglobal.uk@gmail.com'
                       - name: MAIL_PASSWORD
-                        value: '$MAIL_PASSWORD'
+                        value: 'Morocco2024'
                       - name: ALLOW_SUPER_ADMIN_ROLE
-                        value: '$ALLOW_SUPER_ADMIN_ROLE'
+                        value: 'true'
                       - name: GOOGLE_CLIENT_ID
                         value: '$GOOGLE_CLIENT_ID'
                       - name: GOOGLE_CLIENT_SECRET
@@ -258,21 +283,21 @@ spec:
                       - name: MAGIC_CODE_EXPIRATION_TIME
                         value: '$MAGIC_CODE_EXPIRATION_TIME'
                       - name: APP_NAME
-                        value: '$APP_NAME'
+                        value: 'GlobalSync'
                       - name: APP_LOGO
-                        value: '$APP_LOGO'
+                        value: 'http://btrglobal.co.uk:4200/assets/images/logos/logo_Gauzy.png'
                       - name: APP_SIGNATURE
-                        value: '$APP_SIGNATURE'
+                        value: 'GlobalSync Suite'
                       - name: APP_LINK
-                        value: '$APP_LINK'
+                        value: 'app.btrglobal.co.uk'
                       - name: APP_EMAIL_CONFIRMATION_URL
                         value: '$APP_EMAIL_CONFIRMATION_URL'
                       - name: APP_MAGIC_SIGN_URL
                         value: '$APP_MAGIC_SIGN_URL'
                       - name: COMPANY_LINK
-                        value: '$COMPANY_LINK'
+                        value: 'btrglobal.co.uk'
                       - name: COMPANY_NAME
-                        value: '$COMPANY_NAME'
+                        value: 'BTR Global'
 
                   ports:
                       - containerPort: 3000
@@ -281,43 +306,43 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-    name: gauzy-prod-webapp
+    name: webapp
 spec:
     replicas: 3
     selector:
         matchLabels:
-            app: gauzy-prod-webapp
+            app: webapp
     template:
         metadata:
             labels:
-                app: gauzy-prod-webapp
+                app: webapp
         spec:
             containers:
-                - name: gauzy-prod-webapp
-                  image: registry.digitalocean.com/ever/gauzy-webapp:latest
+                - name: webapp
+                  image: registry.digitalocean.com/btr/webapp:latest
                   env:
                       - name: DEMO
                         value: 'false'
                       - name: API_BASE_URL
-                        value: 'https://api.gauzy.co'
+                        value: 'https://api.btrglobal.co.uk'
                       - name: CLIENT_BASE_URL
-                        value: 'https://app.gauzy.co'
+                        value: 'https://app.btrglobal.co.uk'
                       - name: SENTRY_DSN
-                        value: 'https://7cd381188b6f446ca0e69185227b9031@o51327.ingest.sentry.io/4397292'
+                        value: '$SENTRY_DSN'
                       - name: CHATWOOT_SDK_TOKEN
-                        value: 'fPgSSzSQoAWRuDqYyNXmpGLM'
+                        value: '$CHATWOOT_SDK_TOKEN'
                       - name: CLOUDINARY_API_KEY
-                        value: '256868982483961'
+                        value: '$CLOUDINARY_API_KEY'
                       - name: CLOUDINARY_CLOUD_NAME
-                        value: 'dv6ezkfxg'
+                        value: '$CLOUDINARY_CLOUD_NAME'
                       - name: GOOGLE_MAPS_API_KEY
                         value: 'AIzaSyCJmnKzgTSq5Pc93HXar5bZrdmANTwtSIo'
                       - name: GOOGLE_PLACE_AUTOCOMPLETE
                         value: 'true'
                       - name: DEFAULT_LATITUDE
-                        value: '42.6459136'
+                        value: '51.5273089'
                       - name: DEFAULT_LONGITUDE
-                        value: '23.3332736'
+                        value: '-0.088579'
                       - name: DEFAULT_CURRENCY
                         value: 'GBP'
                       - name: GAUZY_GITHUB_CLIENT_ID
