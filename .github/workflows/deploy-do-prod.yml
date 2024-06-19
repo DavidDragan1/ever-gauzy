@@ -23,6 +23,7 @@ jobs:
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
+          context: btr-hrms-token
           token: ${{ secrets.DIGITALOCEAN_SECRET_ACCESS_KEY }}
 
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
