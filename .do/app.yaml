@@ -1,10 +1,10 @@
 alerts:
     - rule: DEPLOYMENT_FAILED
     - rule: DOMAIN_FAILED
-name: ever-gauzy-$ENV_NAME
-region: sfo
+name: globalsync
+region: lon
 domains:
-    - domain: $APP_DOMAIN
+    - domain: btrglobal.co.uk/admin
       type: ALIAS
 services:
     - name: api
@@ -315,7 +315,7 @@ services:
             value: '$MAGIC_CODE_EXPIRATION_TIME'
           - key: APP_NAME
             scope: RUN_TIME
-            value: '$APP_NAME'
+            value: 'GlobalSync'
           - key: APP_LOGO
             scope: RUN_TIME
             value: '$APP_LOGO'
@@ -333,7 +333,7 @@ services:
             value: '$APP_MAGIC_SIGN_URL'
           - key: COMPANY_LINK
             scope: RUN_TIME
-            value: '$COMPANY_LINK'
+            value: 'https://wtslondon.co.uk'
           - key: COMPANY_NAME
             scope: RUN_TIME
-            value: '$COMPANY_NAME'
+            value: 'BTR Global'

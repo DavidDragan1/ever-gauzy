@@ -1,48 +1,48 @@
----
-kind: Service
-apiVersion: v1
-metadata:
-    name: globalsync-prod-web-lb
-    annotations:
-        service.beta.kubernetes.io/do-loadbalancer-name: 'app.btrglobal.co.uk'
-        service.beta.kubernetes.io/do-loadbalancer-protocol: 'http2'
-        service.beta.kubernetes.io/do-loadbalancer-http2-ports: '443'
-        # Replace with your Certificate Id. You can get a list of Ids with 'doctl compute certificate list'
-        service.beta.kubernetes.io/do-loadbalancer-certificate-id: '6430687e-4b00-4898-b66c-38e6fb9e5a19'
-        service.beta.kubernetes.io/do-loadbalancer-size-slug: 'lb-small'
-        service.beta.kubernetes.io/do-loadbalancer-hostname: 'app.btrglobal.co.uk'
-spec:
-    type: LoadBalancer
-    selector:
-        app: globalsync-prod-webapp
-    ports:
-        - name: http
-          protocol: TCP
-          port: 443
-          targetPort: 4200
----
-kind: Service
-apiVersion: v1
-metadata:
-    name: globalsync-prod-api-lb
-    annotations:
-        service.beta.kubernetes.io/do-loadbalancer-name: 'api.btrglobal.co.uk'
-        service.beta.kubernetes.io/do-loadbalancer-protocol: 'http2'
-        service.beta.kubernetes.io/do-loadbalancer-http2-ports: '443'
-        # Replace with your Certificate Id. You can get a list of Ids with 'doctl compute certificate list'
-        service.beta.kubernetes.io/do-loadbalancer-certificate-id: '4bf6d197-6dbb-4394-815b-a543761d94d2'
-        service.beta.kubernetes.io/do-loadbalancer-size-slug: 'lb-small'
-        service.beta.kubernetes.io/do-loadbalancer-hostname: 'api.btrglobal.co.uk'
-spec:
-    type: LoadBalancer
-    selector:
-        app: globalsync-prod-api
-    ports:
-        - name: http
-          protocol: TCP
-          port: 443
-          targetPort: 3000
----
+# ---
+# kind: Service
+# apiVersion: v1
+# metadata:
+#     name: globalsync-prod-web-lb
+#     annotations:
+#         service.beta.kubernetes.io/do-loadbalancer-name: 'app.btrglobal.co.uk'
+#         service.beta.kubernetes.io/do-loadbalancer-protocol: 'http2'
+#         service.beta.kubernetes.io/do-loadbalancer-http2-ports: '443'
+#         # Replace with your Certificate Id. You can get a list of Ids with 'doctl compute certificate list'
+#         service.beta.kubernetes.io/do-loadbalancer-certificate-id: '6430687e-4b00-4898-b66c-38e6fb9e5a19'
+#         service.beta.kubernetes.io/do-loadbalancer-size-slug: 'lb-small'
+#         service.beta.kubernetes.io/do-loadbalancer-hostname: 'app.btrglobal.co.uk'
+# spec:
+#     type: LoadBalancer
+#     selector:
+#         app: globalsync-prod-webapp
+#     ports:
+#         - name: http
+#           protocol: TCP
+#           port: 443
+#           targetPort: 4200
+# ---
+# kind: Service
+# apiVersion: v1
+# metadata:
+#     name: globalsync-prod-api-lb
+#     annotations:
+#         service.beta.kubernetes.io/do-loadbalancer-name: 'api.btrglobal.co.uk'
+#         service.beta.kubernetes.io/do-loadbalancer-protocol: 'http2'
+#         service.beta.kubernetes.io/do-loadbalancer-http2-ports: '443'
+#         # Replace with your Certificate Id. You can get a list of Ids with 'doctl compute certificate list'
+#         service.beta.kubernetes.io/do-loadbalancer-certificate-id: '4bf6d197-6dbb-4394-815b-a543761d94d2'
+#         service.beta.kubernetes.io/do-loadbalancer-size-slug: 'lb-small'
+#         service.beta.kubernetes.io/do-loadbalancer-hostname: 'api.btrglobal.co.uk'
+# spec:
+#     type: LoadBalancer
+#     selector:
+#         app: globalsync-prod-api
+#     ports:
+#         - name: http
+#           protocol: TCP
+#           port: 443
+#           targetPort: 3000
+# ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -92,48 +92,23 @@ spec:
                       - name: CLIENT_BASE_URL
                         value: 'https://app.btrglobal.co.uk'
                       - name: DB_URI
-                        value: 'postgresql://doadmin:AVNS_ejfMNWVCjPyybyGX6vm@db-btr-hrms-cluster-do-user-16956574-0.c.db.ondigitalocean.com:25060/defaultdb?sslmode=require'
+                        value: $secrets.DB_URI
                       - name: DB_HOST
-                        value: 'db-btr-hrms-cluster-do-user-16956574-0.c.db.ondigitalocean.com'
+                        value: '${{ secrets.DB_HOST }}'
                       - name: DB_SSL_MODE
                         value: 'require'
                       - name: DB_CA_CERT
-                        value: '-----BEGIN CERTIFICATE-----
-MIIEQTCCAqmgAwIBAgIUJzcvdOpFJPI3ZpP9hxRIegncFhQwDQYJKoZIhvcNAQEM
-BQAwOjE4MDYGA1UEAwwvZGExMzc0ZWEtYjc2Mi00OTk0LWJlNTQtZTkyZTNmNmRj
-YzA1IFByb2plY3QgQ0EwHhcNMjQwNjE1MTY1NzMxWhcNMzQwNjEzMTY1NzMxWjA6
-MTgwNgYDVQQDDC9kYTEzNzRlYS1iNzYyLTQ5OTQtYmU1NC1lOTJlM2Y2ZGNjMDUg
-UHJvamVjdCBDQTCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBAITXyrqE
-U9YWpLQZ6nRs3IEUNfIM/g5sRSkRypPqUgnK/l7TmZt4ooRQEBFAoUhk2WMw/ieI
-Nt+KCBX2VP3rHz6aPcxOXCDE724bWcL9cJ409QxHqu3RRA37WWGAQDiXyKA1TXKG
-xblc6pXzZTKr9sCFpvqFvnpPbcjR3DcohOoFWyCeJvZogLUaEm+lqS1oRfK1PLCY
-iVRRJLkTzXwmXgTfsRIcWtX4myfiV5XrmEi1lz1x/L4FkZdf8Mef7iRbfpx3yNSO
-AX2aZp+8Pho0/FENzAobHXjt0hrpGpkpPAtWiB7Atq5P6YJ3/A3Xs+C9/Ua+slpQ
-e+xOGGBRIpBVDia4iz4wPL+VTbkCZ5hfKcyl5wkf/M1kUimMfJLKmUMh4rCBQjzq
-18zVgXRLir2DwnfJGeSLz60PV9OyoE9GK0th6O249fpM1hw6mSlL6fXrEDhvA/3C
-ew3tGMk0Hd1ct6aUc1rmvXqQhjDJfPd4fZq5hxhvM7E43rZQarngSxZozwIDAQAB
-oz8wPTAdBgNVHQ4EFgQU/L6nahuWEDGyxMxos1SfiSZkHk0wDwYDVR0TBAgwBgEB
-/wIBADALBgNVHQ8EBAMCAQYwDQYJKoZIhvcNAQEMBQADggGBAFGLWVUWD4nX44fC
-r2Jpszq7FvRTs9cKk/ZIanYfMc6EcRJUbyyZPIOWgx4U/CuJI9CYv6ZKzz7Xm9fD
-UeHOR/RKEIShFGCdkpcxaUPvitBdofqXI/Xjn3LgaG0HG8w5eyUqX+D+jCdfjrCA
-tCQpX8C5BGBusda/iK7vY25hO8C3tDlusf+CwR9Ybj8r624k17Mzs15WVUgEaXmN
-6BrvFDIWPxzSCONyXFhTHEhILd8NL7FYzq3TdNo/e3V6yJcI7gaLkLUlXRFPhu4N
-YHGX3iOYtbfck8bkfWdrbZ44kH+4o8zOx/JOYfw7rI+ie16zxQt5dlWBjOMddjar
-uEI7GU4Xs5fAQhhbsNs3kl6qf7LVrmXc+O6dQSuumdboG6gRuCRXUpi+x2PmnTML
-Hqa5JrnBAVH7fcF9MNnlwmZRYE7+piwcsxDyMG0+UZeUCRqYzBGZZaIH1ZSmr8vY
-aevO/cKsAclcjGb9OmQEKy7Gh8H4jWMUVnqObWyEoZmYfPW/2w==
------END CERTIFICATE-----
-'
+                        value: '${{ secrets.DB_CA_CERT }}'
                       - name: DB_USER
-                        value: 'doadmin'
+                        value: '${{ secrets.DB_USER }}'
                       - name: DB_PASS
-                        value: 'AVNS_ejfMNWVCjPyybyGX6vm'
+                        value: '${{ secrets.DB_PASS }}'
                       - name: DB_TYPE
                         value: 'postgres'
                       - name: DB_NAME
-                        value: 'defaultdb'
+                        value: '${{ secrets.DB_NAME }}'
                       - name: DB_PORT
-                        value: '25060'
+                        value: '${{ secrets.DB_PORT }}'
                       - name: DB_POOL_SIZE
                         value: '$DB_POOL_SIZE'
                       - name: DB_POOL_SIZE_KNEX
@@ -163,9 +138,9 @@ aevO/cKsAclcjGb9OmQEKy7Gh8H4jWMUVnqObWyEoZmYfPW/2w==
                       - name: WASABI_S3_FORCE_PATH_STYLE
                         value: '$WASABI_S3_FORCE_PATH_STYLE'
                       - name: DIGITALOCEAN_ACCESS_KEY_ID
-                        value: '6430687e-4b00-4898-b66c-38e6fb9e5a19'
+                        value: '${{ secrets.DIGITALOCEAN_ACCESS_KEY_ID }}'
                       - name: DIGITALOCEAN_SECRET_ACCESS_KEY
-                        value: 'dop_v1_9d14322d2c28bbfb1c0e712b8f7e38afa4c353532637f28c176ab7b5d8325cee'
+                        value: '${{ secrets.DIGITALOCEAN_SECRET_ACCESS_KEY }}'
                       - name: DIGITALOCEAN_REGION
                         value: 'LON1'
                       - name: DIGITALOCEAN_SERVICE_URL
@@ -201,7 +176,7 @@ aevO/cKsAclcjGb9OmQEKy7Gh8H4jWMUVnqObWyEoZmYfPW/2w==
                       - name: MAIL_USERNAME
                         value: 'btrglobal.uk@gmail.com'
                       - name: MAIL_PASSWORD
-                        value: 'Morocco2024'
+                        value: '${{ secrets.MAIL_PASSWORD }}'
                       - name: ALLOW_SUPER_ADMIN_ROLE
                         value: 'true'
                       - name: GOOGLE_CLIENT_ID
